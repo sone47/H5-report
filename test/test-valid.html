@@ -1,0 +1,71 @@
+<!-- 用于验证fullPage切换页面,以及内容组织结构可用,组件能够进行动画 -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>课程学习情况</title>
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			.component {
+				width: 50%;
+				height: 500px;
+				margin-bottom: 20px;
+				background: #eee;
+				display: none;
+			}
+		</style>
+		<script src="../js/lib/jquery.js"></script>
+		<script src="../js/lib/jquery-ui.min.js"></script>
+		<script src="../js/lib/jquery.fullPage.js"></script>
+
+		<script type="text/javascript">
+			$(function() {
+
+				$('#h5').fullpage({
+					'sectionsColor': ['#254875', '#0f0', '#254687', '#695684'],
+					onLeave: function(index, nextIndex, derection) {
+						$('#h5').find('.page').eq(index - 1).trigger('onLeave');
+					},
+					afterLoad: function(anchorLink, index) {
+						$('#h5').find('.page').eq(index - 1).trigger('onLoad');
+					}
+				});
+
+				$('.page').on('onLeave', function() {
+					console.log($(this).attr('id'), '==>', 'onLeave');
+					$(this).find('.component').triggerHandler('onLeave');
+				});
+				$('.page').on('onLoad', function() {
+					console.log($(this).attr('id'), '==>', 'onLoad');
+					$(this).find('.component').triggerHandler('onLoad');
+				});
+
+				$('.component').on('onLoad', function(e) {
+					$(this).fadeIn();
+				});
+				$('.component').on('onLeave', function() {
+					$(this).fadeOut();
+				});
+
+				$('#h5').find('.page').eq(0).find('.component').trigger('onLoad');
+			});
+		</script>
+	</head>
+	<body>
+		<div id="h5">
+			<div class="page section" id="page-1">
+				<div class="component log">logo</div>
+				<div class="component slogan">slogan</div>
+			</div>
+			<div class="page section" id="page-2">
+				<div class="component desc">描述信息</div>
+			</div>
+			<div class="page section" id="page-3">
+				<div class="component bar">柱状图</div>
+			</div>
+		</div>
+	</body>
+</html>

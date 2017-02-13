@@ -1,0 +1,68 @@
+<!-- 用于开发测试H5ComponentBase对象（基本的图文组件） -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<title>课程学习情况</title>
+		<link rel="stylesheet" type="text/css" href="../css/H5ComponentBase.css">
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+				background: #000;
+				font-size: 12px;
+			}
+			.iphone {
+				width: 340px;
+				height: 540px;
+				background: #fff;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin: -270px 0 0 -170px;
+			}
+		</style>
+		<script src="../js/lib/jquery.js"></script>
+		<script src="../js/H5ComponentBase.js"></script>
+	</head>
+	<body>
+		<div class="iphone">
+			
+		</div>
+
+		<script type="text/javascript">
+			var config = {
+				type: 'base',
+
+				width: 514,
+				height: 306,
+
+				bg: '../img/p1_people.png',
+				css: {
+					bottom: 0,
+					opacity: 0
+				},
+				animateIn: {
+					opacity: 1,
+					bottom: 80
+				},
+				animateOut: {
+					opacity: 0,
+					bottom: 0
+				},
+				center: true
+			}
+
+			var h5 = new H5ComponentBase('myName', config);
+
+			$('.iphone').append(h5);
+
+			var leave = true;
+			$('body').click(function() {
+				leave = !leave;
+				$('.h5_component').trigger(leave? 'onLeave': 'onLoad');
+			});
+		</script>
+	</body>
+</html>
